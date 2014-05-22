@@ -1,0 +1,27 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(http-equiv='Content-Type', content='text/html;charset=utf-8')
+		meta(http-equiv='Content-Script-Type', content='text/javascript')
+		meta(http-equiv='Content-Style-Type', content='text/css')
+		meta(name='viewport', content='width=device-width,, initial-scale=1.0')  
+		title= title
+		link(rel='stylesheet', href='/components/bootstrap-sass/dist/css/bootstrap.min.css')
+		link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Play:400,700')
+		if stylesheets
+			each stylesheet, i in stylesheets
+				link(rel='stylesheet', href='#{stylesheet}')
+
+	body
+		block content
+		script(src='/components/jquery/dist/jquery.min.js')
+		script(src='/components/angular/angular.min.js')
+		script(src='/components/angular-sanitize/angular-sanitize.min.js')
+		script(src='/components/bootstrap-sass/dist/js/bootstrap.min.js')
+		script(src='/components/angular-bootstrap/ui-bootstrap-tpls.min.js')
+		
+		if javascripts
+			each javascript, i in javascripts
+				script(src='#{javascript}')
