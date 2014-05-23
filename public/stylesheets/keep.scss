@@ -1,0 +1,69 @@
+$button-font: Play;
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    padding: 0 !important;
+    margin: 0;
+    word-break: break-all;
+    font-family: Nanum Gothic,AppleGothic,sans-serif;
+}
+
+.note-list {
+    padding: 0;
+    margin: 0;
+    .note {
+        border: 1px solid silver;
+        width: 33%;
+        margin: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 0 0 10px 10px;
+        background: #fff;
+        position: relative;
+        .txt-title {
+					padding: 5px 10px;
+					background-color:yellow;
+					font-weight:bold;
+        }
+        .txt-note {
+        	padding: 5px 10px;
+        	background-color:lightYellow;
+        }
+        .mask {
+        	display:none;
+        	position:absolute;
+        	background-color:rgba(0,0,0,0.5);
+        	bottom:0;
+        	width:100%;
+        }
+        &:hover {
+        	.mask {
+        		display:block;		
+        	}
+        }
+    }
+}
+.bottom {
+	position:fixed;
+	bottom:0;
+	left:0;
+	width:100%;
+}
+.btn {
+    font-family: $button-font;
+    font-size: 11pt;
+    .glyphicon {
+        margin-right: 5px;
+        font-size: 14px;
+        top: 2px;
+    }
+    &.btn-block {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}

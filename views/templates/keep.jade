@@ -1,0 +1,48 @@
+.container
+
+	| home template
+
+	button.btn.btn-default(ng-click='shareAll()')
+		span.glyphicon.glyphicon-share-alt
+			| 전체링크 공유
+
+	select(ng-model='filterType')
+		option(value='') 메모
+		option(value='archived') 어카이브
+
+
+	
+	form(ng-submit='add()')
+		input.form-control.input-sm(ng-model='new.title',
+			ng-show='status.onedit',
+			ng-focus='status.onedit = true',
+			ng-blur='blur()',
+			placeholder='Title',
+			spellcheck='false')
+		input.form-control.input-sm(ng-model='new.note',
+			ng-focus='status.onedit = true',
+			ng-blur='blur()',
+			placeholder='{{status.onedit ? "Note" : "Add note"}}',
+			rows='{{status.onedit ? 5 : 1}}',
+			spellcheck='false')
+		button.btn.btn-default.btn-xs(type='submit')
+			| Done
+		br
+		span.glyphicon.glyphicon-th-list
+		span.glyphicon.glyphicon-picture
+		span.glyphicon.glyphicon-link
+	
+	
+	.note-list
+		div(ng-repeat='note in shares | orderBy : "created" : true')
+			note(shared='true')
+		div(ng-repeat='note in data.keepList | filterByType : filterType | orderBy : "created" : true')
+			note
+
+	.bottom
+		.container
+			alert(ng-repeat='alert in alerts | reverse', type='{{alert.type}}' , close='closeAlert(alert)')
+				| {{alert.msg}}
+
+	pre
+		| {{data | json}}

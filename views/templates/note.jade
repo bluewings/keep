@@ -1,0 +1,46 @@
+div.note
+	div
+		.txt-title(ng-show='note.title')
+			| {{note.title}}
+		.txt-note(ng-show='note.note')
+			| {{note.note}}
+
+	div
+		input(type='text', ng-model='note.title')
+		input(type='text', ng-model='note.note')
+
+	
+
+
+	
+	//div
+		| {{note.created}}
+
+	//div
+		| {{note.updated}}
+
+
+
+
+	div.mask(ng-hide='shared')
+		button.btn.btn-default(ng-click='share()')
+			span.glyphicon.glyphicon-share-alt
+
+
+
+		button.btn.btn-default(ng-click='archive(note)')
+			span.glyphicon.glyphicon-inbox
+
+		button.btn.btn-default(ng-click='remove()')
+			span.glyphicon.glyphicon-trash
+
+
+	div(ng-show='shared')
+
+		button.btn.btn-xs.btn-primary.btn-block(ng-click='keep()'
+			, ng-if='!note._already')
+			span.glyphicon.glyphicon-ok
+			| KEEP !
+		button.btn.btn-xs.btn-success.btn-block(disabled
+			, ng-if='note._already')
+			| Already registered.

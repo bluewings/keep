@@ -20,7 +20,20 @@ block content
 						a(href='#about') About
 					li
 						a(href='#contact') Contact
-
+						
+	br
+	br
+	br
+	br
+	
+	
+	
+	div(ng-app='keep')
+		input.form-control.input-sm(type='text')
+		a(href='/home') home
+		a(href='/about') about
+		ng-view
+	
 
 	h1= title
 	p Welcome to #{title}
