@@ -7,7 +7,7 @@
 			| 전체링크 공유
 
 	select(ng-model='filterType')
-		option(value='') 메모
+		option(value='inbox') 메모
 		option(value='archived') 어카이브
 
 
@@ -34,15 +34,17 @@
 	
 	
 	.note-list
-		div(ng-repeat='note in shares | orderBy : "created" : true')
-			note(shared='true')
-		div(ng-repeat='note in data.keepList | filterByType : filterType | orderBy : "created" : true')
-			note
+		note(ng-if='filterType == "inbox"', ng-repeat='note in shares | orderBy : "created" : true', shared='true')
+			//note(shared='true')
+		note(ng-repeat='note in data.keepList | filterByType : filterType | orderBy : "created" : true')
+
+		//note(ng-repeat='note in data.keepList | filterByType : filterType | orderBy : "created" : true')
+			
 
 	.bottom
 		.container
-			alert(ng-repeat='alert in alerts | reverse', type='{{alert.type}}' , close='closeAlert(alert)')
-				| {{alert.msg}}
+			alert(ng-repeat='alert in alerts | reverse', type='{{alert.type}}' , close='closeAlert(alert)',
+			ng-bind-html='alert.msg')
 
 	pre
 		| {{data | json}}

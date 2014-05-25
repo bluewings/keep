@@ -2,7 +2,7 @@
 
 	console.log('app js');
 
-	var app = angular.module('keep', ['ngRoute', 'ui.bootstrap', 'keep.util']);
+	var app = angular.module('keep', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'keep.util']);
 
 
 	var CONFIG = {};
@@ -82,6 +82,11 @@
 			templateUrl: '/templates/note',
 			controller: function ($scope, $attrs) {
 
+				console.log('each note');
+				console.log($scope);
+
+
+
 				$scope.shared = $attrs.shared;
 
 				$scope.$watch('note.title + note.note', function (newValue, oldValue) {
@@ -94,9 +99,19 @@
 
 
 				// TODO: 서비스로 뺄 것
-				$scope.remove = function () {
+				$scope.remove = function (note) {
 
-					$scope.$parent.data.keepList.splice($scope.$index, 1)[0];
+					var newItems = [];
+
+					angular.forEach($scope.$parent.data.keepList, function(item) {
+						if (item !== note) {
+							newItems.push(item);
+						}
+					});
+
+					$scope.$parent.data.keepList = newItems;
+
+					//$scope.$parent.data.keepList.splice($scope.$index, 1)[0];
 
 
 				};
@@ -146,7 +161,7 @@
 
 
 						if (data.code === 200) {
-							$scope.$parent.addAlert('http://10.64.51.102:4321/share/' + data.result.id);
+							$scope.$parent.addAlert('<a href="http://127.0.0.1:4321/share/' + data.result.id + '" target="_blank">http://127.0.0.1:4321/share/' + data.result.id + '</a>');
 						}
 
 
@@ -173,7 +188,7 @@
 		//console.log($routeParams);
 		$scope.shares = [];
 
-
+				$scope.filterType = 'inbox';
 
 		$scope.data = {
 			keepList: []
@@ -264,10 +279,7 @@
 			}
 
 		};
-		$scope.alerts = [{
-			msg: 'ttttt',
-			type: 'success'
-		}];
+		$scope.alerts = [];
 
 		$scope.addAlert = function (message) {
 			$scope.alerts.push({
