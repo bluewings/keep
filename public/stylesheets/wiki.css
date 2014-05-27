@@ -1,0 +1,10 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+@import url(http://fonts.googleapis.com/css?family=Play:400,700);
+body, input, textarea {
+  font-family: Play, Nanum Myeongjo, Nanum Gothic, Nanum Brush Script, Nanum Pen Script, Nanum Gothic,AppleGothic,sans-serif; }
+
+.profile-macro h4 {
+  margin-bottom: 2px !important; }
+
+/*# sourceMappingURL=wiki.css.map */

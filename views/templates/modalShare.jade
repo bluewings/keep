@@ -1,0 +1,14 @@
+div.modal-header
+	h4.modal-title
+		span.glyphicon.glyphicon-share-alt
+		| Share Bookmark...
+div.modal-body
+
+	.alert.alert-info(style='font-size:12px;padding:10px')
+		a(ng-href='{{data.url}}', target='_blank', style='text-decoration:none;')
+			span.glyphicon.glyphicon-globe(style='margin-right:5px;top:2px;')
+			| {{data.url}}
+	input.form-control.input-sm(ng-model='data.url',readonly)
+div.modal-footer
+	button.btn.btn-sm.btn-default(ng-click='func.cancel()')
+		| Close

@@ -4,14 +4,15 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//var methodOverride = require('method-override');
+var multer  = require('multer');
 
 var routes = require('./routes/index');
 var templates = require('./routes/templates');
 var users = require('./routes/users');
+var upload = require('./routes/upload');
 
 var app = express();
-
-var multiparty = require('multiparty');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +22,13 @@ app.locals.pretty = true;
 
 app.use(favicon());
 app.use(logger('dev'));
+
+  
+//console.log(express.methodOverride);
+//app.use(methodOverride());
+app.use(multer({ dest: './uploads/'}));
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
@@ -30,6 +38,7 @@ app.use('/components', express.static(__dirname + '/bower_components'));
 app.use('/', routes);
 app.use('/templates', templates);
 app.use('/users', users);
+app.use('/upload', upload);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

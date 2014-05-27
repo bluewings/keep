@@ -1,0 +1,6 @@
+{
+"version": 3,
+"mappings": "AAAQ,oEAA4D;AAC5D,sEAA8D;AAC9D,gEAAwD;AAMhE,qBAAoB;EAChB,WAAW,EAAC,6GAA6G;;AAG3H,iBAAG;EACD,aAAa,EAAC,cAAc",
+"sources": ["wiki.scss"],
+"file": "wiki.css"
+}

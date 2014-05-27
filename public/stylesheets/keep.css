@@ -6,38 +6,140 @@ body {
   padding: 0 !important;
   margin: 0;
   word-break: break-all;
-  font-family: Nanum Gothic,AppleGothic,sans-serif; }
+  font-family: Nanum Gothic,AppleGothic,sans-serif;
+  background-color: #ddd; }
+
+.navbar {
+  font-family: Play; }
+
+.note-form {
+  max-width: 476px;
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .note-form .onedit {
+    display: none; }
+  .note-form input, .note-form textarea {
+    resize: none;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: transparent; }
+  .note-form .btn {
+    background-color: transparent;
+    border: none;
+    padding: 6px;
+    margin: 0;
+    text-align: center; }
+    .note-form .btn .glyphicon {
+      margin: 0; }
+  .note-form .input-group-btn {
+    padding-right: 6px; }
+  .note-form .foot {
+    border-top: 1px solid #ccc;
+    padding-left: 8px; }
+    .note-form .foot .pull-right {
+      padding-right: 6px; }
+  .note-form.active .onedit {
+    display: block; }
+  .note-form.active .hide-onedit {
+    display: none; }
+
+.shared-mode .shared-false {
+  -webkit-filter: grayscale(100%);
+  opacity: 0.7; }
+
+.modal {
+  overflow-y: hidden !important; }
+  .modal .modal-dialog {
+    outline: none; }
+    .modal .modal-dialog .modal-header {
+      padding: 10px 15px; }
+      .modal .modal-dialog .modal-header .modal-title {
+        font-family: Play;
+        font-size: 14px; }
+        .modal .modal-dialog .modal-header .modal-title .glyphicon {
+          vertical-align: middle;
+          margin-right: 8px;
+          top: -1px; }
+    .modal .modal-dialog .modal-body {
+      padding: 15px; }
+    .modal .modal-dialog .modal-footer {
+      padding: 15px;
+      margin-top: 0; }
+      .modal .modal-dialog .modal-footer .btn .glyphicon {
+        margin: 0 6px 0 -1px;
+        top: -1px;
+        vertical-align: middle; }
+
+.tm {
+  font-family: Play; }
+
+.edit-view input, .edit-view textarea {
+  border: none;
+  box-shadow: none;
+  font-size: 14px; }
 
 .note-list {
   padding: 0;
-  margin: 0; }
+  margin: 8px -8px; }
   .note-list .note {
-    border: 1px solid silver;
-    width: 33%;
-    margin: 10px;
-    margin: 0 0 10px 10px;
-    margin: 0;
-    border-radius: 5px;
-    overflow: hidden;
-    background: #fff;
-    position: relative;
+    padding: 8px;
+    width: 246px;
     display: inline-block;
     box-sizing: border-box; }
-    .note-list .note .txt-title {
-      padding: 5px 10px;
-      background-color: yellow;
-      font-weight: bold; }
-    .note-list .note .txt-note {
-      padding: 5px 10px;
-      background-color: lightYellow; }
-    .note-list .note .mask {
-      display: none;
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.5);
-      bottom: 0;
-      width: 100%; }
-    .note-list .note:hover .mask {
-      display: block; }
+    .note-list .note .inner {
+      border-radius: 5px;
+      border: 1px solid silver;
+      min-height: 140px;
+      overflow: hidden;
+      background: #fff;
+      position: relative;
+      box-sizing: border-box; }
+      .note-list .note .inner .txt-title {
+        padding: 5px 10px;
+        /*background-color: yellow;*/
+        font-weight: bold; }
+      .note-list .note .inner .txt-note {
+        white-space: pre-line;
+        display: block;
+        padding: 5px 10px;
+        /*background-color: lightYellow;*/ }
+      .note-list .note .inner .link {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 21px;
+        height: 22px;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.6); }
+        .note-list .note .inner .link a {
+          color: #000;
+          font-size: 16px;
+          padding: 2px 2px;
+          display: inline-block;
+          cursor: pointer; }
+      .note-list .note .inner .mask {
+        opacity: 0;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.4);
+        bottom: -33px;
+        width: 100%;
+        padding-left: 8px;
+        -webkit-transition: all 0.2s linear; }
+        .note-list .note .inner .mask .btn {
+          background-color: transparent;
+          border: none;
+          color: #fff;
+          padding: 6px;
+          margin: 0;
+          text-align: center; }
+          .note-list .note .inner .mask .btn .glyphicon {
+            margin: 0; }
+      .note-list .note .inner:hover .mask {
+        bottom: 0;
+        opacity: 1; }
 
 .bottom {
   position: fixed;
@@ -55,5 +157,57 @@ body {
   .btn.btn-block {
     border-top-left-radius: 0;
     border-top-right-radius: 0; }
+
+.masonry,
+.masonry .note {
+  /* apply before masonry add class */
+  position: absolute;
+  /* important to add it before enter animation start */
+  -webkit-transition-duration: .7s;
+  transition-duration: .7s;
+  -webkit-transition-property: all;
+  transition-property: all; }
+
+.masonry .masonry-enter {
+  /* limit animated properties for entering elements */
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform, opacity; }
+
+.masonry-enter,
+.masonry-leave.masonry-leave-active {
+  opacity: 0;
+  -webkit-transform: scale(0.1);
+  transform: scale(0.1); }
+
+.masonry-leave,
+.masonry-enter.masonry-enter-active {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1); }
+
+.ng-enter,
+.ng-leave.ng-leave-active {
+  opacity: 0;
+  -webkit-transform: scale(0.1);
+  transform: scale(0.1); }
+
+.ng-leave,
+.ng-enter.ng-enter-active {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1); }
+
+@media (min-width: 768px) {
+  .container {
+    width: 752px; } }
+@media (min-width: 1014px) {
+  .container {
+    width: 998px; } }
+@media (min-width: 1260px) {
+  .container {
+    width: 1244px; } }
+@media (min-width: 1506px) {
+  .container {
+    width: 1490px; } }
 
 /*# sourceMappingURL=keep.css.map */

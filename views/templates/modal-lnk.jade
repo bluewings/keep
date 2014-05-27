@@ -1,0 +1,16 @@
+div.modal-header
+	h4.modal-title
+		span.glyphicon.glyphicon-floppy-disk
+		| Save As...
+div.modal-body
+	form(name='form')
+		input.form-control.input-sm(ng-model='data.name',name='project_name',required,ng-maxlength='20',placeholder='type your project name.')
+div.modal-footer
+	button.btn.btn-sm.btn-primary(ng-click='func.save()', ng-disabled='form.$invalid', disabled='disabled')
+		span.glyphicon.glyphicon-ok
+		| Save
+	button.btn.btn-sm.btn-default(ng-show='data.workId', ng-click='func.save(true)', ng-disabled='form.$invalid', disabled='disabled')
+		span.glyphicon.glyphicon-cutlery
+		| Fork
+	button.btn.btn-sm.btn-default(ng-click='func.cancel()')
+		| Cancel

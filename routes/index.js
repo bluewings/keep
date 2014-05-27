@@ -1,12 +1,21 @@
 var express = require('express');
 var router = express.Router();
+var childProcess = require('child_process'),
+    phantomjs = require('phantomjs'),
+    path = require('path');
+var SUCCESS = 200;
+var ERROR = 500;
 
 function render(req, res) {
 
 	res.render('index', {
 		title: 'Express',
 		stylesheets: ['/stylesheets/keep.css'],
-		javascripts: ['/javascripts/keep.util.js', '/javascripts/keep.js']
+		javascripts: [
+			'http://cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js',
+
+			'/javascripts/keep.util.js', '/javascripts/keep.js'
+		]
 	});
 }
 
@@ -23,6 +32,67 @@ router.get('/about', function (req, res) {
 router.get('/share/:id', function (req, res) {
 	render(req, res);
 });
+
+
+router.get('/link/:url', function (req, res) {
+
+
+	// phantom
+	//router.get('/misc/capture/:url', function (req, res) {
+
+		var childArgs, paths, key, output = new Date().getTime() + '_' + parseInt(Math.random() * 9999, 10) + '.jpg';
+
+		paths = {
+			capturejs: path.join(__dirname, './../sbin/capture.js'),
+			tmpImg: path.join(__dirname, './../public/_tmp/' + output)
+		};
+		childArgs = [paths.capturejs];
+		childArgs.push('url=' + req.params.url);
+		childArgs.push('output=' + paths.tmpImg);
+		for (key in req.query) {
+			if (req.query.hasOwnProperty(key)) {
+				childArgs.push(key + '=' + req.query[key] + '');
+			}
+		}
+
+		childProcess.execFile(phantomjs.path, childArgs, function (err, stdout, stderr) {
+
+			var result = {};
+
+			try {
+				stdout = JSON.parse(stdout);
+				result = {
+					url: req.params.url,
+					title: stdout.title,
+					note: stdout.desc,
+					image: stdout.thumb
+
+				};
+			} catch(ignore) {
+
+
+
+			}
+
+
+
+			res.jsonp({
+				code: err ? ERROR : SUCCESS,
+				message: err ? stderr : 'ok',
+				result: result
+
+				/* {
+					url: '/_tmp/' + output,
+					done: childArgs,
+					err: err,
+					stdout: stdout,
+					stderr: stderr
+				}*/
+			});
+		});
+	//});
+});
+
 
 router.get('/share/notes/:id', function (req, res) {
 

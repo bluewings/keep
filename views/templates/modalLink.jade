@@ -1,0 +1,13 @@
+div.modal-header
+	h4.modal-title
+		span.glyphicon.glyphicon-link
+		| Create Bookmark...
+div.modal-body
+	form(name='form')
+		input.form-control.input-sm(ng-model='data.url',name='url',required,ng-maxlength='1024',placeholder='type URL.')
+div.modal-footer
+	button.btn.btn-sm.btn-primary(ng-click='func.bookmark()', ng-disabled='form.$invalid', disabled='disabled')
+		span.glyphicon.glyphicon-ok
+		| Bookmark
+	button.btn.btn-sm.btn-default(ng-click='func.cancel()')
+		| Cancel

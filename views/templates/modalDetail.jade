@@ -1,0 +1,17 @@
+div.modal-body.edit-view
+	img(ng-show='note.image', ng-src='{{note.image}}', width='100%')
+	input.form-control.input-sm(ng-model='note.title', style='font-weight:bold', placeholder='Title')
+	textarea.form-control.input-sm(ng-model='note.note', rows='10')
+
+
+
+
+div.modal-footer
+	.tm(style='float:left')
+		| {{note.created | date}}
+	.pull-right
+		button.btn.btn-sm.btn-primary(ng-click='func.update()')
+			span.glyphicon.glyphicon-ok
+			| Update
+		button.btn.btn-sm.btn-default(ng-click='func.cancel()')
+			| Close

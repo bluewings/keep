@@ -1,44 +1,85 @@
-.container
+.container(style='padding-top:16px')
 
-	| home template
 
-	button.btn.btn-default(ng-click='shareAll()')
-		span.glyphicon.glyphicon-share-alt
-			| 전체링크 공유
 
-	select(ng-model='filterType')
-		option(value='inbox') 메모
-		option(value='archived') 어카이브
+	//div
+		| home template
 
+		button.btn.btn-default
+			span.glyphicon.glyphicon-share-alt
+				| 전체링크 공유
+
+		select(ng-model='filterType')
+			option(value='inbox') 메모
+			option(value='archived') 어카이브
+
+		br
+		br
+	div(style='width:100%')
+		div(style='padding-bottom:15px;margin-bottom:15px;border-bottom:1px dotted #aaa')
+			.btn-group
+				a.btn.btn-default.btn-sm(ng-click='filterType = "inbox"',
+					ng-class='filterType == "inbox" ? "btn-primary" : ""')
+					span.glyphicon.glyphicon-file
+					| Notes
+				a.btn.btn-default.btn-sm(ng-click='filterType = "bookmark"',
+					ng-class='filterType == "bookmark" ? "btn-primary" : ""')
+					span.glyphicon.glyphicon-bookmark
+					| Bookmark				
+				a.btn.btn-default.btn-sm(ng-click='filterType = "archived"',
+					ng-class='filterType == "archived" ? "btn-primary" : ""')
+					span.glyphicon.glyphicon-inbox
+					| Archived	
+
+			.pull-right			
+
+
+				.input-group(style='width:300px')
+					input.form-control.input(ng-model='data.query')
+					.input-group-btn(style='margin-left:10px')
+						a.btn.btn-default.btn-sm(ng-click='shareAll()')
+							span.glyphicon.glyphicon-share-alt
+							| Share
 
 	
-	form(ng-submit='add()')
-		input.form-control.input-sm(ng-model='new.title',
-			ng-show='status.onedit',
-			ng-focus='status.onedit = true',
+	form.note-form(ng-submit='add()',
+		ng-class='status.onedit ? "active" : ""', style='margin-left:auto;margin-right:auto')
+		input.form-control.input-sm.onedit(ng-model='new.title',
+			ng-focus='focus()',
 			ng-blur='blur()',
 			placeholder='Title',
 			spellcheck='false')
-		input.form-control.input-sm(ng-model='new.note',
-			ng-focus='status.onedit = true',
-			ng-blur='blur()',
-			placeholder='{{status.onedit ? "Note" : "Add note"}}',
-			rows='{{status.onedit ? 5 : 1}}',
-			spellcheck='false')
-		button.btn.btn-default.btn-xs(type='submit')
-			| Done
-		br
-		span.glyphicon.glyphicon-th-list
-		span.glyphicon.glyphicon-picture
-		span.glyphicon.glyphicon-link
+		div(ng-class='status.onedit ? "" : "input-group"')
+			textarea.form-control.input-sm(ng-model='new.note',
+				ng-focus='focus()',
+				ng-blur='blur()',
+				placeholder='{{status.onedit ? "Note" : "Add note"}}',
+				rows='{{status.onedit ? 5 : 1}}',
+				spellcheck='false')
+			.input-group-btn.hide-onedit
+				
+				.btn.btn-xs(ng-click='uploadImage()')
+					span.glyphicon.glyphicon-picture
+				.btn.btn-xs(ng-click='noteLink()')
+					span.glyphicon.glyphicon-link
+		.foot.onedit
+			.btn(ng-click='uploadImage()')
+				span.glyphicon.glyphicon-picture
+			.btn(ng-click='noteLink()')
+				span.glyphicon.glyphicon-link
+			.pull-right
+				button.btn(type='submit')
+					span.glyphicon.glyphicon-ok
+					
+		
 	
-	
-	.note-list
-		note(ng-if='filterType == "inbox"', ng-repeat='note in shares | orderBy : "created" : true', shared='true')
-			//note(shared='true')
-		note(ng-repeat='note in data.keepList | filterByType : filterType | orderBy : "created" : true')
+	ul.note-list(masonry='true')
+		
 
-		//note(ng-repeat='note in data.keepList | filterByType : filterType | orderBy : "created" : true')
+		li.note(note, ng-repeat='note in notes | filter : data.query | filterByType : filterType | orderBy : ["shared", "created"] : [true, true]', ng-attr-shared='{{note.shared}}')
+
+		//li.note(note, ng-if='filterType == "inbox"', ng-repeat='note in shares | orderBy : ["shared", "created"] : [true, true]', shared='true')
+
 			
 
 	.bottom
@@ -46,5 +87,5 @@
 			alert(ng-repeat='alert in alerts | reverse', type='{{alert.type}}' , close='closeAlert(alert)',
 			ng-bind-html='alert.msg')
 
-	pre
+	//pre
 		| {{data | json}}
